@@ -16,9 +16,16 @@ class App {
     this.context = context;
     this.actions = actions;
     this._routesLoaded = false;
+    this.routesToLoad = [];
   }
 
   loadRoutes(routes) {
+
+    if (typeof routes !== 'function') {
+      const message = `Routes must be wrapped in a function.`;
+      throw new Error(message);
+    }
+
     const inject = (comp) => {
       return injectDeps(this.context, this.actions)(comp);
     };
@@ -27,7 +34,14 @@ class App {
     this._routesLoaded = true;
   }
 
+  loadModuleRoutes() {
+    for (var o of this.routesToLoad) {
+      this.loadRoutes(o.routes);
+    }
+  }
+
   loadModule(module) {
+
     if (this._routesLoaded) {
       const message = `A module should be loaded before loading routes.`;
       throw new Error(message);
@@ -50,6 +64,11 @@ class App {
     };
 
     module.load(this.context);
+
+    if (module.routes) {
+      const routes = module.routes;
+      this.routesToLoad.push({ routes });
+    }
   }
 }
 
