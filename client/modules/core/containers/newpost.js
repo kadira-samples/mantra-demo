@@ -1,13 +1,29 @@
 import NewPost from '../components/newpost.jsx';
-import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
+import {useDeps, compose, composeAll} from 'mantra-core';
 
 export const composer = ({context, clearErrors}, onData) => {
-  const {LocalState} = context();
-  const error = LocalState.get('SAVING_ERROR');
+  const {Store} = context();
+
+  // subscribe to state updates
+  // and keep handle to unsubscribe
+  const unsubscribe = Store.subscribe(() => {
+    const error = Store.getState().posts.SAVING_POST_ERROR;
+    onData(null, {error})
+  });
+
+  // get initial state
+  const error = Store.getState().posts.SAVING_POST_ERROR;
   onData(null, {error});
 
-  // clearErrors when unmounting the component
-  return clearErrors;
+  // function to unsubscribe from Store
+  // and clearing error
+  const cleanup = () => {
+    unsubscribe();
+    clearErrors();
+  };
+
+  // running cleanup when unmounting the component
+  return cleanup;
 };
 
 export const depsMapper = (context, actions) => ({
@@ -17,6 +33,6 @@ export const depsMapper = (context, actions) => ({
 });
 
 export default composeAll(
-  composeWithTracker(composer),
+  compose(composer),
   useDeps(depsMapper)
 )(NewPost);

@@ -1,14 +1,31 @@
 import {
-  useDeps, composeWithTracker, composeAll
+  useDeps, compose, composeAll
 } from 'mantra-core';
 import Component from '../components/create_comment.jsx';
 
 export const composer = ({context, clearErrors}, onData) => {
-  const {LocalState} = context();
-  const error = LocalState.get('CREATE_COMMENT_ERROR');
+  const {Store} = context();
+
+  // subscribe to state updates
+  // and keep handle to unsubscribe
+  const unsubscribe = Store.subscribe(() => {
+    const error = Store.getState().comments.CREATE_COMMENT_ERROR;
+    onData(null, {error})
+  });
+
+  // get initial state
+  const error = Store.getState().comments.CREATE_COMMENT_ERROR;
   onData(null, {error});
 
-  return clearErrors;
+  // function to unsubscribe from Store
+  // and clearing error
+  const cleanup = () => {
+    unsubscribe();
+    clearErrors();
+  };
+
+  // running cleanup when unmounting the component
+  return cleanup;
 };
 
 export const depsMapper = (context, actions) => ({
@@ -18,6 +35,6 @@ export const depsMapper = (context, actions) => ({
 });
 
 export default composeAll(
-  composeWithTracker(composer),
+  compose(composer),
   useDeps(depsMapper)
 )(Component);

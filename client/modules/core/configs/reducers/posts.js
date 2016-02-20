@@ -1,19 +1,19 @@
-import {check} from 'meteor/check';
-
-export default function ({Meteor, Collections}) {
-  Meteor.methods({
-    'posts.create'(_id, title, content) {
-      check(_id, String);
-      check(title, String);
-      check(content, String);
-
-      const createdAt = new Date();
-      const post = {
-        _id, title, content, createdAt,
-        saving: true
+const defaultState = { SAVING_POST_ERROR: null};
+const postsReducer = (state = defaultState, action) => {
+  switch(action.type) {
+    case 'SET_SAVING_POST_ERROR':
+      return {
+        ...state,
+        SAVING_POST_ERROR: action.error
       };
+    case 'CLEAR_SAVING_POST_ERROR':
+      return {
+        ...state,
+        SAVING_POST_ERROR: null
+      };
+    default:
+      return state;
+  }
+};
 
-      Collections.Posts.insert(post);
-    }
-  });
-}
+export default postsReducer;
