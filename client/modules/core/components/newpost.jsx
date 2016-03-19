@@ -16,11 +16,7 @@ class NewPost extends React.Component {
   }
 
   createPost(event) {
-    // Becaus the test cannot get event argument
-    // so call preventDefault() on undefined cause an error
-    if (event && event.preventDefault) {
-      event.preventDefault();
-    }
+    event.preventDefault();
 
     const {create} = this.props;
     const {titleRef, contentRef} = this.refs;
