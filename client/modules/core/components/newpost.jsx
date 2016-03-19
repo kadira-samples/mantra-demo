@@ -16,6 +16,8 @@ class NewPost extends React.Component {
   }
 
   createPost(event) {
+    event.preventDefault();
+
     const {create} = this.props;
     const {titleRef, contentRef} = this.refs;
 
