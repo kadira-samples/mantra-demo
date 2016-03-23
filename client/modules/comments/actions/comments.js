@@ -1,24 +1,37 @@
 export default {
-  create({Meteor, LocalState}, postId, text) {
+  create({Meteor, Store}, postId, text) {
     if (!text) {
-      return LocalState.set('CREATE_COMMENT_ERROR', 'Comment text is required.');
+      return Store.dispatch({
+        type: 'SET_CREATE_COMMENT_ERROR',
+        error: 'Comment text is required.'
+      });
     }
 
     if (!postId) {
-      return LocalState.set('CREATE_COMMENT_ERROR', 'postId is required.');
+      return Store.dispatch({
+        type: 'SET_CREATE_COMMENT_ERROR',
+        error: 'postId is required.'
+      });
     }
 
-    LocalState.set('CREATE_COMMENT_ERROR', null);
+    Store.dispatch({
+      type: 'CLEAR_CREATE_COMMENT_ERROR'
+    });
 
     const id = Meteor.uuid();
     Meteor.call('posts.createComment', id, postId, text, (err) => {
       if (err) {
-        return LocalState.set('CREATE_COMMENT_ERROR', err.message);
+        return Store.dispatch({
+          type: 'SET_CREATE_COMMENT_ERROR',
+          error: err.message
+        });
       }
     });
   },
 
-  clearErrors({LocalState}) {
-    return LocalState.set('CREATE_COMMENT_ERROR', null);
+  clearErrors({Store}) {
+    return Store.dispatch({
+      type: 'CLEAR_CREATE_COMMENT_ERROR'
+    });
   }
 };
