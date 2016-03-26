@@ -28,20 +28,21 @@ const CommentList = ({ comments, postId }) => (
               leftIcon={<CommunicationChatBubble />}
             />
             <Divider />
-          </List>) : null}
-      <List style={styles.padded}>
-        <Subheader>Recent Comments</Subheader>
-          {comments.map(comment => (
-            <div key={comment._id} className="comment">
-              {comment.saving ? '...' : null}
-                <ListItem
-                  primaryText={<span><b>{comment.author}:</b> {comment.text}</span>}
-                  leftIcon={<CommunicationChatBubble />}
-                />
-                <Divider />
-            </div>
+          </List>) :
+        (<List style={styles.padded}>
+          <Subheader>Recent Comments</Subheader>
+            {comments.map(comment => (
+              <div key={comment._id} className="comment">
+                {comment.saving ? '...' : null}
+                  <ListItem
+                    primaryText={<span><b>{comment.author}:</b> {comment.text}</span>}
+                    leftIcon={<CommunicationChatBubble />}
+                  />
+                  <Divider />
+              </div>
             ))}
-      </List>
+        </List>)
+      }
     </div>
   </div>
 );

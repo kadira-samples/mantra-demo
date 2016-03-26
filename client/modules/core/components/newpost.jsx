@@ -1,4 +1,6 @@
 import React from 'react';
+import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
 
 class NewPost extends React.Component {
   constructor() {
@@ -16,19 +18,25 @@ class NewPost extends React.Component {
     const { create } = this.props;
     const { titleRef, contentRef } = this.refs;
 
-    create(titleRef.value, contentRef.value);
+    create(titleRef.getValue(), contentRef.getValue());
   }
 
   render() {
     const { error } = this.props;
     return (
       <form className="new-post" onSubmit={this.createPost}>
-        <h2>Add New Post</h2>
-        {error ? <p style={{ color: 'red' }}>{error}</p> : null}
-
-        <input ref="titleRef" type="Text" placeholder="Enter your post title." /> <br />
-        <textarea ref="contentRef" placeholder="Enter your post content." /> <br />
-        <button type="submit">Add New</button>
+        <TextField
+          ref="titleRef"
+          floatingLabelText="Enter your post title."
+          errorText={error}
+        /><br />
+        <TextField
+          ref="contentRef"
+          floatingLabelText="Enter your post conetent."
+          multiLine
+          rows={6}
+        /><br />
+        <RaisedButton secondary label="Add New" type="submit" />
       </form>
     );
   }
