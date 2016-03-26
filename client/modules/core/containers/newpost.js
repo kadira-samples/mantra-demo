@@ -1,10 +1,10 @@
 import NewPost from '../components/newpost.jsx';
-import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
+import { useDeps, composeWithTracker, composeAll } from 'mantra-core';
 
-export const composer = ({context, clearErrors}, onData) => {
-  const {LocalState} = context();
+export const composer = ({ context, clearErrors }, onData) => {
+  const { LocalState } = context();
   const error = LocalState.get('SAVING_ERROR');
-  onData(null, {error});
+  onData(null, { error });
 
   // clearErrors when unmounting the component
   return clearErrors;
@@ -13,7 +13,7 @@ export const composer = ({context, clearErrors}, onData) => {
 export const depsMapper = (context, actions) => ({
   create: actions.posts.create,
   clearErrors: actions.posts.clearErrors,
-  context: () => context
+  context: () => context,
 });
 
 export default composeAll(

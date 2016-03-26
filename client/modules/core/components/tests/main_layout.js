@@ -1,8 +1,10 @@
-const {describe, it} = global;
-import {expect} from 'chai';
-import {shallow} from 'enzyme';
+const { describe, it } = global;
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import MainLayout from '../main_layout.jsx';
 import Navigation from '../navigation.jsx';
+import React from 'react';
+
 
 describe('core.components.main_layout', () => {
   it('should contain navigation', () => {
@@ -13,7 +15,7 @@ describe('core.components.main_layout', () => {
   it('should render childrens', () => {
     const Comp = () => (<p>Hello</p>);
     const el = shallow(
-      <MainLayout content={() => (<Comp />)}/>
+      <MainLayout content={function testThis() {return (<Comp />);}} />
     );
 
     expect(el.contains(<Comp />)).to.be.equal(true);

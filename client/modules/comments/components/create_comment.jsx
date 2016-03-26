@@ -1,34 +1,54 @@
 import React from 'react';
+import RaisedButton from 'material-ui/lib/raised-button';
+import TextField from 'material-ui/lib/text-field';
 
 class CreateComment extends React.Component {
-  render() {
-    const {error} = this.props;
-    return (
-      <div>
-        {error ? this._renderError(error) : null}
-        <textarea ref='text' placeholder='Enter your comment here.'>
+  constructor() {
+    super();
+    this._create = this._create.bind(this);
+  }
 
-        </textarea>
-        <br />
-        <button onClick={this._create.bind(this)}>Add Comment</button>
+  _renderError(error) {
+    return (
+      <div className="error">
+        {error}
       </div>
     );
   }
 
   _create() {
-    const text = this.refs.text.value;
-    const {create, postId} = this.props;
+    const text = this.refs.text.getValue();
+    const { create, postId } = this.props;
     create(postId, text);
-    this.refs.text.value = '';
+    this.refs.text.input.value = '';
   }
 
-  _renderError(error) {
+  render() {
+    const { error } = this.props;
     return (
-      <div className='error'>
-        {error}
+      <div>
+
+        <TextField
+          errorText={error ? this._renderError(error) : null}
+          ref="text"
+          fullWidth
+          floatingLabelText="Enter Your Comment Here"
+        /><br />
+
+        <RaisedButton
+          onClick={this._create}
+          primary
+          label="Add Comment"
+        />
       </div>
     );
   }
 }
+
+CreateComment.propTypes = {
+  create: React.PropTypes.func,
+  postId: React.PropTypes.string,
+  error: React.PropTypes.string,
+};
 
 export default CreateComment;

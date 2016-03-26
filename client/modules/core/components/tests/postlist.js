@@ -1,21 +1,22 @@
-const {describe, it} = global;
-import {expect} from 'chai';
-import {shallow} from 'enzyme';
+const { describe, it } = global;
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import PostList from '../postlist.jsx';
+import React from 'react';
 
 describe('core.components.postlist', () => {
   const posts = [
-    {title: 't-one', _id: 'one'},
-    {title: 't-two', _id: 'two'},
+    { title: 't-one', _id: 'one' },
+    { title: 't-two', _id: 'two' },
   ];
 
   it('should list given number of items', () => {
-    const el = shallow(<PostList posts={posts}/>);
+    const el = shallow(<PostList posts={posts} />);
     expect(el.find('li').length).to.be.equal(posts.length);
   });
 
   it('should list post title for each item', () => {
-    const el = shallow(<PostList posts={posts}/>);
+    const el = shallow(<PostList posts={posts} />);
     const lis = el.find('li');
     lis.forEach((li, index) => {
       const aText = li.find('a').first().text();
@@ -24,7 +25,7 @@ describe('core.components.postlist', () => {
   });
 
   it('shallow list post link for each items', () => {
-    const el = shallow(<PostList posts={posts}/>);
+    const el = shallow(<PostList posts={posts} />);
     const lis = el.find('li');
     lis.forEach((li, index) => {
       const href = li.find('a').first().prop('href');

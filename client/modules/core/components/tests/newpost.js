@@ -1,7 +1,9 @@
-const {describe, it} = global;
-import {expect} from 'chai';
-import {shallow} from 'enzyme';
+const { describe, it } = global;
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import NewPost from '../newpost.jsx';
+import React from 'react';
+
 
 describe('core.components.newpost', () => {
   it('should show the error if there are any', () => {
@@ -35,8 +37,8 @@ describe('core.components.newpost', () => {
     const instance = el.instance();
 
     instance.refs = {
-      titleRef: {value: title},
-      contentRef: {value: content}
+      titleRef: { value: title },
+      contentRef: { value: content },
     };
 
     el.find('form').simulate('submit');

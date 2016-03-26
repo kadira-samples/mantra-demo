@@ -1,5 +1,5 @@
 export default {
-  create({Meteor, LocalState}, postId, text) {
+  create({ Meteor, LocalState }, postId, text) {
     if (!text) {
       return LocalState.set('CREATE_COMMENT_ERROR', 'Comment text is required.');
     }
@@ -11,14 +11,15 @@ export default {
     LocalState.set('CREATE_COMMENT_ERROR', null);
 
     const id = Meteor.uuid();
-    Meteor.call('posts.createComment', id, postId, text, (err) => {
+    return Meteor.call('posts.createComment', id, postId, text, (err) => {
       if (err) {
         return LocalState.set('CREATE_COMMENT_ERROR', err.message);
       }
+      return null;
     });
   },
 
-  clearErrors({LocalState}) {
+  clearErrors({ LocalState }) {
     return LocalState.set('CREATE_COMMENT_ERROR', null);
-  }
+  },
 };
