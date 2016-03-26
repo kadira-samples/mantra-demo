@@ -31,8 +31,8 @@ class PostList extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     const { posts } = this.props;
+
     return (
       <List className="postlist" style={styles.list}>
           {posts.map((post, index) => (
@@ -40,8 +40,8 @@ class PostList extends React.Component {
               key={post._id}
               style={index % 2 === 0 ? styles.light : styles.dark }
               primaryText={post.title}
-              onClick={()=>this.transition(post._id)}
-              ref="post"
+              postId={post._id}
+              onClick={() => this.transition(post._id)}
               leftAvatar={
                 <ActionDescription
                   style={styles.svg}

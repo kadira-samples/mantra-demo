@@ -1,5 +1,6 @@
 import React from 'react';
-import FlatButton from 'material-ui/lib/flat-button';
+import RaisedButton from 'material-ui/lib/raised-button';
+import TextField from 'material-ui/lib/text-field';
 
 class CreateComment extends React.Component {
   constructor() {
@@ -16,22 +17,25 @@ class CreateComment extends React.Component {
   }
 
   _create() {
-    const text = this.refs.text.value;
+    const text = this.refs.text.getValue();
     const { create, postId } = this.props;
     create(postId, text);
-    this.refs.text.value = '';
+    this.refs.text.input.value = '';
   }
 
   render() {
     const { error } = this.props;
     return (
       <div>
-        {error ? this._renderError(error) : null}
-        <textarea ref="text" placeholder="Enter your comment here.">
 
-        </textarea>
-        <br />
-        <FlatButton
+        <TextField
+          errorText={error ? this._renderError(error) : null}
+          ref="text"
+          fullWidth
+          floatingLabelText="Enter Your Comment Here"
+        /><br />
+
+        <RaisedButton
           onClick={this._create}
           primary
           label="Add Comment"
@@ -44,7 +48,7 @@ class CreateComment extends React.Component {
 CreateComment.propTypes = {
   create: React.PropTypes.func,
   postId: React.PropTypes.string,
-  error: React.PropTypes.object,
+  error: React.PropTypes.string,
 };
 
 export default CreateComment;

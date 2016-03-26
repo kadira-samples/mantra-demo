@@ -35,7 +35,7 @@ class NewPost extends React.Component {
 }
 
 NewPost.propTypes = {
-  error: React.PropTypes.object,
+  error: React.PropTypes.string,
   create: React.PropTypes.func,
 };
 
