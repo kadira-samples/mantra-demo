@@ -2,6 +2,7 @@ import React from 'react';
 import CreateComment from '../containers/create_comment.js';
 
 const CommentList = ({ comments, postId }) => (
+
   <div className="comments">
     <div>
       <CreateComment postId={postId} />

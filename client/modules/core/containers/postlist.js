@@ -9,7 +9,13 @@ export const composer = ({ context }, onData) => {
   }
 };
 
+export const depsMapper = (context, actions) => ({
+  goToPost: actions.posts.goToPost,
+  clearErrors: actions.posts.clearErrors,
+  context: () => context,
+});
+
 export default composeAll(
   composeWithTracker(composer),
-  useDeps()
+  useDeps(depsMapper)
 )(PostList);

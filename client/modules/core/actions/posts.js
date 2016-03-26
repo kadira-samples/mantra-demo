@@ -21,4 +21,8 @@ export default {
   clearErrors({ LocalState }) {
     return LocalState.set('SAVING_ERROR', null);
   },
+
+  goToPost({ FlowRouter }, id) {
+    return FlowRouter.go(`/post/${id}`);
+  },
 };
