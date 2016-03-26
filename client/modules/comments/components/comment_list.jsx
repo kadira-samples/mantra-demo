@@ -1,10 +1,10 @@
 import React from 'react';
 import CreateComment from '../containers/create_comment.js';
 
-const CommentList = ({comments, postId}) => (
+const CommentList = ({ comments, postId }) => (
   <div className="comments">
     <div>
-      <CreateComment postId={postId}/>
+      <CreateComment postId={postId} />
     </div>
     <div className="comment-list">
       {comments.length === 0 ? <p>No Comments Yet!</p> : null}
@@ -17,5 +17,10 @@ const CommentList = ({comments, postId}) => (
     </div>
   </div>
 );
+
+CommentList.propTypes = {
+  comments: React.PropTypes.array,
+  postId: React.PropTypes.string,
+};
 
 export default CommentList;

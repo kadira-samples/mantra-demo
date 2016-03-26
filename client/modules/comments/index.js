@@ -5,5 +5,5 @@ export default {
   actions,
   load(context) {
     methodStubs(context);
-  }
+  },
 };

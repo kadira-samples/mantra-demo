@@ -1,6 +1,6 @@
-import {check} from 'meteor/check';
+import { check } from 'meteor/check';
 
-export default function ({Meteor, Collections}) {
+export default function ({ Meteor, Collections }) {
   Meteor.methods({
     'posts.create'(_id, title, content) {
       check(_id, String);
@@ -10,10 +10,10 @@ export default function ({Meteor, Collections}) {
       const createdAt = new Date();
       const post = {
         _id, title, content, createdAt,
-        saving: true
+        saving: true,
       };
 
       Collections.Posts.insert(post);
-    }
+    },
   });
 }

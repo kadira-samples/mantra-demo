@@ -1,5 +1,5 @@
 export default {
-  create({Meteor, LocalState, FlowRouter}, title, content) {
+  create({ Meteor, LocalState, FlowRouter }, title, content) {
     if (!title || !content) {
       return LocalState.set('SAVING_ERROR', 'Title & Content are required!');
     }
@@ -13,11 +13,12 @@ export default {
       if (err) {
         return LocalState.set('SAVING_ERROR', err.message);
       }
+      return null;
     });
-    FlowRouter.go(`/post/${id}`);
+    return FlowRouter.go(`/post/${id}`);
   },
 
-  clearErrors({LocalState}) {
+  clearErrors({ LocalState }) {
     return LocalState.set('SAVING_ERROR', null);
-  }
+  },
 };

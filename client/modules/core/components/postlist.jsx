@@ -1,7 +1,7 @@
 import React from 'react';
 
-const PostList = ({posts}) => (
-  <div className='postlist'>
+const PostList = ({ posts }) => (
+  <div className="postlist">
     <ul>
       {posts.map(post => (
         <li key={post._id}>
@@ -11,5 +11,9 @@ const PostList = ({posts}) => (
     </ul>
   </div>
 );
+
+PostList.propTypes = {
+  posts: React.PropTypes.array,
+};
 
 export default PostList;
