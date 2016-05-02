@@ -26,7 +26,7 @@ describe('core.containers.newpost', () => {
       const args = onData.args[0];
 
       expect(args[0]).to.be.equal(null);
-      expect(args[1]).to.be.deep.equal({error: 'error'});
+      expect(args[1]).to.deep.equal({error: 'error'});
     });
 
     it('should return clearErrors', () => {
