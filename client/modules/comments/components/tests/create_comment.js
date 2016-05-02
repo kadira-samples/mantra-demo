@@ -23,9 +23,9 @@ describe('comments.components.create_comment', () => {
     const postId = 'the-id';
     const text = 'the-text';
 
-    const onCreate = () => {
-      expect(postId).to.be.equal(postId);
-      expect(text).to.be.equal(text);
+    const onCreate = (_postId, _text) => {
+      expect(_postId).to.be.equal(postId);
+      expect(_text).to.be.equal(text);
       done();
     };
 
