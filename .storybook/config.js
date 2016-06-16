@@ -1,7 +1,7 @@
 import { configure } from '@kadira/storybook';
-import { disable } from 'react-komposer';
+import { setTestMode } from 'react-komposer';
 
-disable();
+setTestMode();
 
 function loadStories() {
   require('../client/modules/core/components/.stories');
