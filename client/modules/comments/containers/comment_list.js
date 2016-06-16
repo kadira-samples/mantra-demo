@@ -1,7 +1,8 @@
 import {
-  useDeps, composeWithTracker, composeAll
+  useDeps, composeWithTracker, compose, composeAll
 } from 'mantra-core';
 import Component from '../components/comment_list';
+import { composeAllWithStub } from 'react-komposer';
 
 export const composer = ({context, clearErrors, postId}, onData) => {
   const {Meteor, Collections} = context();
@@ -16,7 +17,17 @@ export const composer = ({context, clearErrors, postId}, onData) => {
   }
 };
 
-export default composeAll(
+export const composerStub = ({context, clearErrors}, onData) => {
+  const comments = [
+    {_id: 'one', text: 'This is cool.', author: 'arunoda'},
+    {_id: 'two', text: 'Yeah! I agree.', author: 'sacha'},
+  ];
+
+  onData(null, {comments});
+};
+export default composeAllWithStub([
   composeWithTracker(composer),
   useDeps()
-)(Component);
+],[
+  compose(composerStub),
+])(Component);
