@@ -1,6 +1,7 @@
 import {Posts, Comments} from '/lib/collections';
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
+import {uuid} from '/lib/match';
 
 export default function () {
   Meteor.publish('posts.list', function () {
@@ -15,13 +16,13 @@ export default function () {
   });
 
   Meteor.publish('posts.single', function (postId) {
-    check(postId, String);
+    check(postId, uuid);
     const selector = {_id: postId};
     return Posts.find(selector);
   });
 
   Meteor.publish('posts.comments', function (postId) {
-    check(postId, String);
+    check(postId, uuid);
     const selector = {postId};
     return Comments.find(selector);
   });

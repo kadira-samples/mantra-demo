@@ -1,5 +1,5 @@
 export default {
-  create({Meteor, LocalState}, postId, text) {
+  create({Meteor, LocalState, Random}, postId, text) {
     if (!text) {
       return LocalState.set('CREATE_COMMENT_ERROR', 'Comment text is required.');
     }
@@ -10,7 +10,7 @@ export default {
 
     LocalState.set('CREATE_COMMENT_ERROR', null);
 
-    const id = Meteor.uuid();
+    const id = Random.id();
     Meteor.call('posts.createComment', id, postId, text, (err) => {
       if (err) {
         return LocalState.set('CREATE_COMMENT_ERROR', err.message);

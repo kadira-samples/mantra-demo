@@ -1,6 +1,7 @@
 import * as Collections from '/lib/collections';
 import {Meteor} from 'meteor/meteor';
 import {FlowRouter} from 'meteor/kadira:flow-router';
+import {Random} from 'meteor/random';
 import {ReactiveDict} from 'meteor/reactive-dict';
 import {Tracker} from 'meteor/tracker';
 
@@ -10,6 +11,7 @@ export default function () {
     FlowRouter,
     Collections,
     LocalState: new ReactiveDict(),
+    Random,
     Tracker
   };
 }

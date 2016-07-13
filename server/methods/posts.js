@@ -1,11 +1,12 @@
 import {Posts, Comments} from '/lib/collections';
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
+import {uuid} from '/lib/match';
 
 export default function () {
   Meteor.methods({
     'posts.create'(_id, title, content) {
-      check(_id, String);
+      check(_id, uuid);
       check(title, String);
       check(content, String);
 
@@ -21,7 +22,7 @@ export default function () {
 
   Meteor.methods({
     'posts.createComment'(_id, postId, text) {
-      check(_id, String);
+      check(_id, uuid);
       check(postId, String);
       check(text, String);
 
